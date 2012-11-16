@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+        <id>Yoshi2889:FXTracker</id>
+        <name>FXTracker Alpha</name>
+        <version>0.1</version>
+        <type>modification</type>
+        
+        <!-- Last but not lea- wait, we just started? -->
+        <install for="2.0.2">
+                <!-- Couple of files, required for operation. -->
+                <require-file name="files/Sources/Bugtracker.php" destination="$sourcedir">FXTracker Loader</require-file>
+                <require-file name="files/Sources/Bugtracker-Hooks.php" destination="$sourcedir">Integration Hooks</require-file>
+                <require-dir name="files/Sources/FXTracker" destination="$sourcedir">FXTracker Sources</require-dir>
+                
+                <!-- Languages. -->
+                <require-file name="files/Themes/default/languages/BugTracker.english.php" destination="$languagedir">English Language: Main</require-file>
+                <require-file name="files/Themes/default/languages/BugTrackerAdmin.english.php" destination="$languagedir">English Language: Admin Panel</require-file>
+                <require-file name="files/Themes/default/languages/BugTracker.russian-utf8.php" destination="$languagedir">Russian Language by Bugo: Main</require-file>
+                <require-file name="files/Themes/default/languages/BugTrackerAdmin.russian-utf8.php" destination="$languagedir">Russian Language by Bugo: Admin Panel</require-file>
+                
+                
+                <!-- Our other templates and required files. -->
+                <require-dir name="files/Themes/default/fxt" destination="$themedir">FXTracker Templates</require-dir>
+                <require-file name="files/Themes/default/css/bugtracker.css" destination="$themedir/css">FXTracker CSS: Main</require-file>
+                <require-file name="files/Themes/default/css/btacp.css" destination="$themedir/css">FXTracker CSS: Admin Panel</require-file>
+                <require-dir name="files/Themes/default/images/bugtracker" destination="$imagesdir">FXTracker Images</require-dir>
+                
+                <!-- Install the database, hooks and settings. -->
+                <database>install.php</database>
+                
+                <!-- And our readme. -->
+                <readme type="file" parsebbc="true">install_readme.txt</readme>
+        </install>
+        
+        <uninstall for="2.0.2">
+                <!-- Remove everything. -->
+                <remove-file name="$sourcedir/Bugtracker.php" />
+                <remove-file name="$sourcedir/Bugtracker-Hooks.php" />
+                <remove-dir name="$sourcedir/FXTracker" />
+                <remove-file name="$languagedir/BugTracker.english.php" />
+                <remove-file name="$languagedir/BugTrackerAdmin.english.php" />
+                <remove-dir name="$themedir/fxt" />
+                <remove-file name="$themedir/css/bugtracker.css" />
+                <remove-file name="$themedir/css/btacp.css" />
+                <remove-dir name="$imagesdir/bugtracker" />
+                
+                <code>uninstall.php</code>
+                <database>uninstall-optional.php</database>
+                
+                <readme type="file">uninstall_readme.txt</readme>
+        </uninstall>
+</package-info>
