@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Yoshi2889:RemoveLastEditMod</id>
+	<name>Remove "Last edit" mod</name>
+	<version>0.2.3</version>
+	<type>modification</type>
+	<install for="2.0 - 2.0.99">
+		<modification>install.xml</modification>
+		<modification>langs.xml</modification>
+		<code>installhooks.php</code>
+		<require-file name="Subs-RemoveLastEditMod.php" destination="$sourcedir">RLEM core file</require-file>
+	</install>
+	<uninstall for="2.0 - 2.0.99">
+		<modification reverse="true">install.xml</modification>
+		<modification reverse="true">langs.xml</modification>
+		<code>uninstallhooks.php</code>
+		<remove-file name="$sourcedir/Subs-RemoveLastEditMod.php" />
+	</uninstall>
+</package-info>

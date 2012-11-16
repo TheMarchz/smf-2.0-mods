@@ -1,0 +1,7 @@
+To install FXTracker:
+
+Create a ZIP file with the instructions provided in Package/files/readme.txt
+Install the created ZIP in the Package Manager.
+
+*Please note that the FXTracker release found here can be highly unstable.
+We do not recommend you to use this build, but rather use the build found at http://map3cms.co.cc/index.php?action=viewmod;modid=1
