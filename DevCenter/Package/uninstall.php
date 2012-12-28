@@ -29,6 +29,15 @@ if (isset($smcFunc) && !empty($smcFunc))
 		)
 	);
 
+// Remove that hooks!
+remove_integration_function('integrate_pre_include', '$sourcedir/Subs-DevCenter.php');
+remove_integration_function('integrate_menu_buttons', 'DevCenter_ErrorLogCount');
+remove_integration_function('integrate_pre_load', 'DevCenter_PreLoad');
+remove_integration_function('integrate_actions', 'DevCenter_Actions');
+remove_integration_function('integrate_theme_include', 'DevCenter_CheckServerLoad');
+remove_integration_function('integrate_modify_modifications', 'DevCenter_prepareSettings');
+remove_integration_function('integrate_admin_areas', 'DevCenter_adminArea');
+
 if (SMF == 'SSI')
 {
     fatal_error('<b>Uninstallation complete! (no errors occured)</b><br />');

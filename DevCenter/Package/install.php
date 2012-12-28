@@ -18,5 +18,14 @@ $newSettings = array(
         'devcenter_serverloadtobreak' => '80',
 );
 
+// Insert that hooks!
+add_integration_function('integrate_pre_include', '$sourcedir/Subs-DevCenter.php', true);
+add_integration_function('integrate_menu_buttons', 'DevCenter_ErrorLogCount', true);
+add_integration_function('integrate_pre_load', 'DevCenter_PreLoad', true);
+add_integration_function('integrate_actions', 'DevCenter_Actions', true);
+add_integration_function('integrate_theme_include', 'DevCenter_CheckServerLoad', true);
+add_integration_function('integrate_modify_modifications', 'DevCenter_prepareSettings', true);
+add_integration_function('integrate_admin_areas', 'DevCenter_adminArea', true);
+
 updateSettings($newSettings);
 ?>
