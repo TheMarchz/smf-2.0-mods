@@ -10,9 +10,11 @@
         <readme parsebbc="true">readme.txt</readme>
         <modification>install.xml</modification>
         <code>install.php</code>
+        <require-file name="files/Subs-RemoveLastEditMod.php" destination="$sourcedir" />
     </install>
     <uninstall for="2.0 - 2.0.99">
         <modification reverse="true">install.xml</modification>
         <code>uninstall.php</code>
+        <remove-file name="$sourcedir/Subs-RemoveLastEditMod.php" />
     </uninstall>
 </package-info>
