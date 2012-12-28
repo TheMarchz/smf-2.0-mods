@@ -1,1 +1,0 @@
-Thank you for using FXTracker. Please check the box above if you want to remove all entries, projects and notes, along with the settings.
