@@ -12,7 +12,6 @@
         <require-file name="files/Subs-FancyPosts.php" destination="$sourcedir" />
     </install>
     <uninstall for="2.0 - 2.0.99">
-        <modification reverse="true">install.xml</modification>
         <code>uninstall.php</code>
         <remove-file name="$sourcedir/Subs-FancyPosts.php" />
     </uninstall>
