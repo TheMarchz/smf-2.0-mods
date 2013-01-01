@@ -1,4 +1,4 @@
-smf-2.0-mods
+SMF 2.0 Mods
 ============
 
-Mods for SMF
+My mods for SMF. Please use the Mod Manager found in the ModManager repo on my account to open these mod packs.
