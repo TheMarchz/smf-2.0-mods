@@ -68,7 +68,7 @@ function DevCenter_ErrorLogCount(&$buttons)
 function DevCenter_PreLoad()
 {
         // That's all we have right now.
-        global $modSettings;
+        global $modSettings, $context, $db_show_debug;
         
         // First, if asked to, check the server load!
         if (!empty($modSettings['devcenter_quithighserverload']) && (!empty($modSettings['devcenter_serverloadtobreak']) && is_numeric($modSettings['devcenter_serverloadtobreak'])) && !stristr(PHP_OS, 'win'))
@@ -90,9 +90,6 @@ function DevCenter_PreLoad()
 </html>');
                 }
         }
-        
-        // But we may be adding this:
-        global $db_show_debug;
         
         // Do we want to show the errors? (little trick ;))
         if (!empty($modSettings['devcenter_direct_printing_error']))
@@ -153,7 +150,7 @@ function DevCenter_Exit()
         global $context, $modSettings;
         
         if ($context['dc_error_count'] != 0)
-                updateSettings('devcenter_error_count' => $modSettings['devcenter_error_count'] + $context['dc_error_count']);
+                updateSettings(array('devcenter_error_count' => $modSettings['devcenter_error_count'] + $context['dc_error_count']));
 }
 
 ?>

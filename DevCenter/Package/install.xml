@@ -51,7 +51,7 @@ $txt['high_server_load'] = 'De server is momenteel erg belast';]]></add>
             <add><![CDATA[        
         // If this isn't equal to what we have in the DevCenter settings, update it.
         if ($sum != $modSettings['devcenter_error_count'])
-                updateSettings('devcenter_error_count' => $sum);]]></add>
+                updateSettings(array('devcenter_error_count' => $sum));]]></add>
         </operation>
     </file>
 </modification>
