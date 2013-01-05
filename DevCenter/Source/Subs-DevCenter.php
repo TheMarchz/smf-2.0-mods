@@ -68,7 +68,10 @@ function DevCenter_ErrorLogCount(&$buttons)
 function DevCenter_PreLoad()
 {
         // That's all we have right now.
-        global $modSettings, $context, $db_show_debug;
+        global $modSettings, $context, $db_show_debug, $dc_error_count;
+        
+        // Start the countin'!
+        $dc_error_count = 0;
         
         // First, if asked to, check the server load!
         if (!empty($modSettings['devcenter_quithighserverload']) && (!empty($modSettings['devcenter_serverloadtobreak']) && is_numeric($modSettings['devcenter_serverloadtobreak'])) && !stristr(PHP_OS, 'win'))
@@ -94,9 +97,6 @@ function DevCenter_PreLoad()
         // Do we want to show the errors? (little trick ;))
         if (!empty($modSettings['devcenter_direct_printing_error']))
                 $db_show_debug = true;
-                
-        // Start the countin'!
-        $context['dc_error_count'] = 0;
 }
 
 // Hook some action in.
@@ -119,7 +119,7 @@ function DevCenter_phpinfo()
 // Check the load of the server. If it's damned high, transform the News line into a line telling so. We might even have closed our forums...
 function DevCenter_CheckServerLoad()
 {
-        global $modSettings;
+        global $modSettings, $txt, $context;
         
         // Doesn't work for Windows. Disable it on Windows systems, therefor.
         if (!empty($modSettings['devcenter_checkserverload']) && (!empty($modSettings['devcenter_serverloadtobreak']) && is_numeric($modSettings['devcenter_serverloadtobreak'])) && !stristr(PHP_OS, 'win'))
@@ -127,8 +127,6 @@ function DevCenter_CheckServerLoad()
                 $load = sys_getloadavg();
                 if ($load[0] >= $modSettings['devcenter_serverloadtobreak'])
                 {
-                        global $txt, $context;
-                        
                         $txt['news'] = '<strong>' . $txt['warning'] . ':</strong>';
                         
                         $context['random_news_line'] = $txt['high_server_load'];
@@ -139,18 +137,18 @@ function DevCenter_CheckServerLoad()
 // Add one up to the current page error count.
 function DevCenter_LogError()
 {
-        global $context;
+        global $dc_error_count;
         
-        $context['dc_error_count']++;
+        $dc_error_count++;
 }
 
-// Log all errors.
+// Update the error count.
 function DevCenter_Exit()
 {
-        global $context, $modSettings;
+        global $dc_error_count, $modSettings;
         
-        if ($context['dc_error_count'] != 0)
-                updateSettings(array('devcenter_error_count' => $modSettings['devcenter_error_count'] + $context['dc_error_count']));
+        if ($dc_error_count > 0)
+                updateSettings(array('devcenter_error_count' => $modSettings['devcenter_error_count'] + $dc_error_count));
 }
 
 ?>
