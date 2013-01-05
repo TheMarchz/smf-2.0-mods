@@ -1,0 +1,1 @@
+To install, copy the files from the Source directory into this directory, then ZIP the package together.
