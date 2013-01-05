@@ -16,4 +16,9 @@ $newSettings = array(
 );
 
 updateSettings($newSettings);
+
+// Hooks.
+add_integration_function('integrate_pre_include', '$sourcedir/Subs-BackToTheIndex.php');
+add_integration_function('integrate_menu_buttons', 'btti_menu');
+add_integration_function('integrate_general_mod_settings', 'btti_settings');
 ?>

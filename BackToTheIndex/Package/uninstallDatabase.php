@@ -26,6 +26,11 @@ if (isset($smcFunc) && !empty($smcFunc))
 		)
 	);
 
+// Hooks.
+remove_integration_function('integrate_pre_include', '$sourcedir/Subs-BackToTheIndex.php');
+remove_integration_function('integrate_menu_buttons', 'btti_menu');
+remove_integration_function('integrate_general_mod_settings', 'btti_settings');
+
 if (SMF == 'SSI')
 {
     fatal_error('<b>Uninstallation complete! (no errors occured)</b><br />');

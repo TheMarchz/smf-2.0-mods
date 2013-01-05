@@ -10,9 +10,11 @@
         <readme parsebbc="true">readme.txt</readme>
         <modification>install.xml</modification>
         <database>installDatabase.php</database>
+        <require-file name="files/Subs-BackToTheIndex.php" destination="$sourcedir" />
     </install>
     <uninstall for="2.0 - 2.0.99">
         <modification reverse="true">install.xml</modification>
         <database>uninstallDatabase.php</database>
+        <remove-file name="$sourcedir/Subs-BackToTheIndex.php" />
     </uninstall>
 </package-info>
