@@ -7,6 +7,14 @@ elseif (!defined('SMF')) // If we are outside SMF and can't find SSI.php, then t
 
 if (SMF == 'SSI')
 	db_extend('packages'); 
+        
+// Grab the current error count.
+$result = $smcFunc['db_query']('', "
+        SELECT count(id_error)
+        FROM {db_prefix}log_errors");
+        
+list ($count) = $smcFunc['db_fetch_row']($result);
+$smcFunc['db_free_result']($result);
 
 $newSettings = array(
 	'devcenter_menu_count_log_entries' => "1",
@@ -16,16 +24,24 @@ $newSettings = array(
         'devcenter_quithighserverload' => '',
         'devcenter_checkserverload' => '1',
         'devcenter_serverloadtobreak' => '80',
+        'devcenter_error_count' => $count,
 );
 
-// Insert that hooks!
-add_integration_function('integrate_pre_include', '$sourcedir/Subs-DevCenter.php', true);
-add_integration_function('integrate_menu_buttons', 'DevCenter_ErrorLogCount', true);
-add_integration_function('integrate_pre_load', 'DevCenter_PreLoad', true);
-add_integration_function('integrate_actions', 'DevCenter_Actions', true);
-add_integration_function('integrate_theme_include', 'DevCenter_CheckServerLoad', true);
-add_integration_function('integrate_modify_modifications', 'DevCenter_prepareSettings', true);
-add_integration_function('integrate_admin_areas', 'DevCenter_adminArea', true);
-
 updateSettings($newSettings);
+
+// Insert that hooks!
+$hooks = array(
+        'integrate_pre_include' => '$sourcedir/Subs-DevCenter.php',
+        'integrate_menu_buttons' => 'DevCenter_ErrorLogCount',
+        'integrate_pre_load' => 'DevCenter_PreLoad',
+        'integrate_actions' => 'DevCenter_Actions',
+        'integrate_theme_include' => 'DevCenter_CheckServerLoad',
+        'integrate_modify_modifications' => 'DevCenter_prepareSettings',
+        'integrate_admin_areas' => 'DevCenter_adminArea',
+        'integrate_output_error' => 'DevCenter_LogError',
+        'integrate_exit' => 'DevCenter_Exit',
+);
+
+foreach ($hooks as $hook => $function)
+        add_integration_function($hook, $function);
 ?>

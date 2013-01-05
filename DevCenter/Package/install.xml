@@ -44,4 +44,14 @@ $txt['warning'] = 'Waarschuwing';
 $txt['high_server_load'] = 'De server is momenteel erg belast';]]></add>
         </operation>
     </file>
+    <file name="$sourcedir/ManageErrors.php">
+        <operation>
+            <search position="before"><![CDATA[	// Update the all errors tab with the total number of errors
+	$context['error_types']['all']['label'] .= ' (' . $sum . ')';]]></search>
+            <add><![CDATA[        
+        // If this isn't equal to what we have in the DevCenter settings, update it.
+        if ($sum != $modSettings['devcenter_error_count'])
+                updateSettings('devcenter_error_count' => $sum);]]></add>
+        </operation>
+    </file>
 </modification>

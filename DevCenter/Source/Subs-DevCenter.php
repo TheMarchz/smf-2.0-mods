@@ -51,26 +51,16 @@ function DevCenter_Settings($return_config = false)
 function DevCenter_ErrorLogCount(&$buttons)
 {
         // Should we grab the error log entries?
-        global $modSettings, $context, $smcFunc;
+        global $modSettings, $context;
         
-        // Quite a few conditions.
-        if (!empty($modSettings['devcenter_menu_count_log_entries']) && $buttons['admin']['sub_buttons']['errorlog']['show'])
+        // Get the current count.
+        $count = $modSettings['devcenter_error_count'];
+        
+        // If we are not empty, or want to show the count at all times, show the count.
+        if ($count != '0' or ($count == 0 && empty($modSettings['devcenter_dont_show_when_0'])))
         {
-                // Load the IDs from the database. Only for errors. That's all we need.
-                $result = $smcFunc['db_query']('', "
-                        SELECT count(id_error)
-                        FROM {db_prefix}log_errors");
-        
-                list ($count) = $smcFunc['db_fetch_row']($result);
-		
-		$smcFunc['db_free_result']($result);
-                
-                // If we are not empty, or want to show the count at all times, show the count.
-                if ($count != '0' or ($count == 0 && empty($modSettings['devcenter_dont_show_when_0'])))
-                {
-                        $buttons['admin']['title'] .= ' [<strong>' . $count . '</strong>]';
-                        $buttons['admin']['sub_buttons']['errorlog']['title'] .= ' [<strong>' . $count . '</strong>]';
-                }
+                $buttons['admin']['title'] .= ' [<strong>' . $count . '</strong>]';
+                $buttons['admin']['sub_buttons']['errorlog']['title'] .= ' [<strong>' . $count . '</strong>]';
         }
 }
 
@@ -107,6 +97,9 @@ function DevCenter_PreLoad()
         // Do we want to show the errors? (little trick ;))
         if (!empty($modSettings['devcenter_direct_printing_error']))
                 $db_show_debug = true;
+                
+        // Start the countin'!
+        $context['dc_error_count'] = 0;
 }
 
 // Hook some action in.
@@ -144,6 +137,23 @@ function DevCenter_CheckServerLoad()
                         $context['random_news_line'] = $txt['high_server_load'];
                 }
         }
+}
+
+// Add one up to the current page error count.
+function DevCenter_LogError()
+{
+        global $context;
+        
+        $context['dc_error_count']++;
+}
+
+// Log all errors.
+function DevCenter_Exit()
+{
+        global $context, $modSettings;
+        
+        if ($context['dc_error_count'] != 0)
+                updateSettings('devcenter_error_count' => $modSettings['devcenter_error_count'] + $context['dc_error_count']);
 }
 
 ?>
