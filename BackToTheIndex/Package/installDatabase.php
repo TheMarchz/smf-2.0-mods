@@ -13,6 +13,7 @@ $newSettings = array(
 	'backtotheindex_title' => "",
 	'backtotheindex_href' => "http://",
 	'backtotheindex_position' => 'end',
+        'backtotheindex_target_blank',
 );
 
 updateSettings($newSettings);

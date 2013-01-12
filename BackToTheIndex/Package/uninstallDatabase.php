@@ -15,6 +15,7 @@ $BTTI_settings = array(
 	'backtotheindex_title',
 	'backtotheindex_href',
 	'backtotheindex_position',
+	'backtotheindex_target_blank',
 );
 
 if (isset($smcFunc) && !empty($smcFunc))

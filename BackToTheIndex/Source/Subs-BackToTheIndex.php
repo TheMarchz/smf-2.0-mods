@@ -18,7 +18,7 @@ function btti_menu(&$menu_buttons)
         $after = array();
         
         // Are we adding the button before or after the menu?
-        if (!empty($modSettings['backtotheindex_href']) && !empty($modSettings['backtotheindex_title']))
+        if (!empty($modSettings['backtotheindex_href']) && !empty($modSettings['backtotheindex_title']) && !empty($modSettings['backtotheindex_position']))
         {
                 switch ($modSettings['backtotheindex_position'])
                 {
@@ -31,6 +31,11 @@ function btti_menu(&$menu_buttons)
                                                 'is_last' => $context['right_to_left'],
                                         ),
                                 );
+				
+				// Not elegant but this is a must because SMF uses isset(), which will return true even if the value's empty.
+				if (!empty($modSettings['backtotheindex_target_blank']))
+					$before['btti']['target'] = '_BLANK';
+				
                                 break;
                                 
                         default:
@@ -42,6 +47,10 @@ function btti_menu(&$menu_buttons)
                                                 'is_last' => !$context['right_to_left'],
                                         ),
                                 );
+				
+				// Not elegant but this is a must because SMF uses isset(), which will return true even if the value's empty.
+				if (!empty($modSettings['backtotheindex_target_blank']))
+					$after['btti']['target'] = '_BLANK';
 
                                 break;
                 }
@@ -62,6 +71,7 @@ function btti_settings(&$config_vars)
 		array('text', 'backtotheindex_title'),
 		array('text', 'backtotheindex_href'),
 		array('select', 'backtotheindex_position', array('start' => $txt['backtotheindex_beginofmenu'], 'end' => $txt['backtotheindex_endofmenu'])),
+		array('check', 'backtotheindex_target_blank'),
         );
         
         $config_vars = array_merge($config_vars, $bsettings);

@@ -4,7 +4,7 @@
 <package-info xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/package-info">
     <id>Yoshi2889:BackToTheIndex</id>
     <name>Back To The Index</name>
-    <version>0.2.2</version>
+    <version>0.4</version>
     <type>modification</type>
     <install for="2.0 - 2.0.99">
         <readme parsebbc="true">readme.txt</readme>
