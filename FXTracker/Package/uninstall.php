@@ -9,8 +9,6 @@ elseif (!defined('SMF'))
 	die('<b>Error:</b> Cannot uninstall - please verify you put this file in the same place as SMF\'s SSI.php.');
 }
 
-db_extend('packages');
-
 // Get rid of the integration hooks. It'll disable everything FXTracker.
 remove_integration_function('integrate_pre_include', '$sourcedir/Bugtracker-Hooks.php');
 remove_integration_function('integrate_actions', 'fxt_actions');
