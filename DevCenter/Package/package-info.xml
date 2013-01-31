@@ -4,7 +4,7 @@
 <package-info xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/package-info">
     <id>Yoshi2889:DevCenter</id>
     <name>DevCenter</name>
-    <version>0.3</version>
+    <version>0.3.1</version>
     <type>modification</type>
     <install for="2.0 - 2.99.99">
         <modification>install.xml</modification>

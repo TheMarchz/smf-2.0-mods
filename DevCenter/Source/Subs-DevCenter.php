@@ -54,7 +54,7 @@ function DevCenter_ErrorLogCount(&$buttons)
         global $modSettings, $context;
         
         // Get the current count.
-        $count = $modSettings['devcenter_error_count'];
+        $count = !empty($modSettings['devcenter_error_count']) ? $modSettings['devcenter_error_count'] : 0;
         
         // If we are not empty, or want to show the count at all times, show the count.
         if ($count != '0' or ($count == 0 && empty($modSettings['devcenter_dont_show_when_0'])))
@@ -146,9 +146,11 @@ function DevCenter_LogError()
 function DevCenter_Exit()
 {
         global $dc_error_count, $modSettings;
+	
+	$oldcount = !empty($modSettings['devcenter_error_count']) ? $modSettings['devcenter_error_count'] : 0;
         
         if ($dc_error_count > 0)
-                updateSettings(array('devcenter_error_count' => $modSettings['devcenter_error_count'] + $dc_error_count));
+                updateSettings(array('devcenter_error_count' => $oldcount + $dc_error_count));
 }
 
 ?>
