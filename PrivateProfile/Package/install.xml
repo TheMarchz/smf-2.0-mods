@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<!--Generated with Mod Manager (c) 2013 Yoshi2889-->
+<modification xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/modification">
+    <id>Yoshi2889:PrivateProfile</id>
+    <version>1.0</version>
+    <file name="$sourcedir/Profile-Modify.php">
+        <operation>
+            <search position="after"><![CDATA[		'yim' => array(]]></search>
+            <add><![CDATA[                'profile_private' => array(
+
+                        'type' => 'check',
+
+                        'label' => $txt['private_profile'],
+
+                        'enabled' => true,
+                ),]]></add>
+        </operation>
+    </file>
+    <file name="$sourcedir/Profile-Modify.php">
+        <operation>
+            <search position="before"><![CDATA['hide_email', 'show_online',]]></search>
+            <add><![CDATA[ 'profile_private',]]></add>
+        </operation>
+    </file>
+    <file name="$languagedir/Modifications.english.php">
+        <operation>
+            <search position="end" />
+            <add><![CDATA[$txt['private_profile'] = 'Allow guests to view my profile';]]></add>
+        </operation>
+    </file>
+    <file name="$sourcedir/Load.php">
+        <operation>
+            <search position="before"><![CDATA[mem.smiley_set, mem.show_online,]]></search>
+            <add><![CDATA[ mem.profile_private,]]></add>
+        </operation>
+    </file>
+    <file name="$sourcedir/Profile.php">
+        <operation>
+            <search position="after"><![CDATA[
+
+	// Actually create the menu!
+	$profile_include_data = createMenu($profile_areas, $menuOptions);]]></search>
+            <add><![CDATA[	// Private Profile by Yoshi2889
+	if (!empty($cur_profile['profile_private']) && $context['user']['is_guest'] && !allowedTo('profile_view_any'))
+	{
+		$profile_areas['info']['areas']['summary']['permission'] = '';
+		$profile_areas['info']['areas']['summary']['enabled'] = true;
+		$profile_areas['info']['areas']['statistics']['permission'] = '';
+		$profile_areas['info']['areas']['statistics']['enabled'] = true;
+		$profile_areas['info']['areas']['showposts']['permission'] = '';
+		$profile_areas['info']['areas']['showposts']['enabled'] = true;
+		$profile_areas['info']['areas']['showposts']['subsections']['messages'][1] = array();
+		$profile_areas['info']['areas']['showposts']['subsections']['topics'][1] = array();
+		$profile_areas['info']['areas']['showposts']['subsections']['attach'][1] = array();
+	}
+	// End Private Profile by Yoshi2889]]></add>
+        </operation>
+    </file>
+    <file name="$languagedir/Modifications.french.php" error="skip">
+        <operation>
+            <search position="end" />
+            <add><![CDATA[$txt['private_profile'] = 'Autorisez les visiteurs à voir mon profil';]]></add>
+        </operation>
+    </file>
+</modification>

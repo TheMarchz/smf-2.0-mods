@@ -1,0 +1,1 @@
+[center][color=red][size=24pt]Private Profile[/size][/color][/center]
