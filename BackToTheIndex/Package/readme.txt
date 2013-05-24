@@ -27,6 +27,9 @@ The [url=http://wiki.simplemachines.org/smf/Package_manager]Package Manager[/url
 Translations are welcome!
 
 [b]Changelog:[/b]
+[i]v0.4.1:[/i]
+- Reorganised bits of code
+
 [i]v0.4:[/i]
 - Added option to open the link in a new tab
 - Code cleanup

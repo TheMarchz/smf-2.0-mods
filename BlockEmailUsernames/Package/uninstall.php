@@ -9,5 +9,3 @@ remove_integration_function('integrate_pre_include', '$sourcedir/Subs-BlockEmail
 remove_integration_function('integrate_register', 'beu_validate');
 remove_integration_function('integrate_modify_modifications', 'beu_settings');
 remove_integration_function('integrate_admin_areas', 'beu_admin');
-
-?>

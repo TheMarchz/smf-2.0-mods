@@ -25,24 +25,30 @@ Translations are welcome!
 - Make more use of integration hooks.
 
 [b]Changelog:[/b]
-0.4:
+[i]v0.4.1:[/i]
+! Code cleanup
+! Bug fixes
+! Admin panel is more clear now
+! Fixed Dutch typo
+
+[i]v0.4:[/i]
 + Added hooks!
 ! Fixed bug which directly used $_POST instead of the appropriate value.
 
-0.3:
+[i]v0.3:[/i]
 + Added "Only allow these providers:" option in Admin panel
 ! Fixed a bug which probably occurred when entering the admin panel for the mod (thanks Brack1!)
 ! Changed package_info.XML to provide compatibility from 2.0 to 2.99.99 (thanks Reaper.CSF.!)
 
-0.2.1:
+[i]v0.2.1:[/i]
 ! Fixed Dutch-UTF8 typo.
 
-0.2:
-- Added Admin panel integration
-- Ability to check e-mail addresses for blocked providers added.
-- Ability to only block certain providers added.
-- Added master switch (so you don't need to uninstall the mod to disable it)
-(you can upgrade from 1.0 so you don't have to uninstall first)
+[i]v0.2:[/i]
++ Added Admin panel integration
++ Ability to check e-mail addresses for blocked providers added.
++ Ability to only block certain providers added.
++ Added master switch (so you don't need to uninstall the mod to disable it)
+(you can upgrade from 0.1 so you don't have to uninstall first)
 
-0.1:
+[i]v0.1:[/i]
 - Initial release

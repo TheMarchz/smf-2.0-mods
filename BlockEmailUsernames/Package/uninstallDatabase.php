@@ -6,10 +6,12 @@ elseif (!defined('SMF'))
     die('<b>Error:</b> Cannot install - please verify you put this in the same place as SMF\'s index.php.');
 
 $settings = array(
-	'enableblockemail' => "0",
-	'block_by_provider' => "0",
-	'email_providers_deny' => "hotmail.com;gmail.com",
-	'also_check_email_addresses' => "0",
+	'enableblockemail',
+	'block_by_provider',
+	'email_providers_deny',
+	'also_check_email_addresses',
+	'allow_by_provider',
+	'email_providers_allow'
 );
 
 if (isset($smcFunc) && !empty($smcFunc))
@@ -20,5 +22,3 @@ if (isset($smcFunc) && !empty($smcFunc))
 			'settings' => $settings,
 		)
 	);
-
-?>

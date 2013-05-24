@@ -4,16 +4,17 @@
 <package-info xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/package-info">
     <id>Yoshi2889:DevCenter</id>
     <name>DevCenter</name>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
     <type>modification</type>
     <install for="2.0 - 2.99.99">
         <modification>install.xml</modification>
-        <code>install.php</code>
+        <database>installDatabase.php</database>
         <require-file name="files/Subs-DevCenter.php" destination="$sourcedir" />
     </install>
     <uninstall for="2.0 - 2.99.99">
         <modification reverse="true">install.xml</modification>
         <code>uninstall.php</code>
+        <database>uninstallDatabase.php</database>
         <remove-file name="$sourcedir/Subs-DevCenter.php" />
     </uninstall>
 </package-info>

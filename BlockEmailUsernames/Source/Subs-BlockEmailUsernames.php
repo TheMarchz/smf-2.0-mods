@@ -3,56 +3,74 @@
 function beu_validate(&$regOptions)
 {
 	global $modSettings;
+	
+	if (empty($modSettings['enableblockemail']))
+		return;
+	
 	// Rule out possible e-mail addresses, while not ruling out any @'s or .'s alone.
-	if ($modSettings['enableblockemail'] == '1' && preg_match('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $regOptions['username']) == 1)
+	if (($modSettings['block_what'] == 'username' || $modSettings['block_what'] == 'both') && preg_match('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $regOptions['username']))
 	{
 		// Do we block certain providers?
 		if (!empty($modSettings['block_by_provider']))
 		{
-			// Make it explode, baby!
+			// Grab every provider we specified.
 			$checkproviders = explode(';', $modSettings['email_providers_deny']);
+			$block = false;
 			foreach ($checkproviders as $provider)
 			{
-				if (stripos($regOptions['username'], $provider) && $provider != "")
-				{
-					loadLanguage('Modifications');
-					fatal_lang_error('registration_failed_email_provider1');
-				}
+				if (!empty($provider) && stripos($regOptions['username'], '@' . $provider))
+					$block = true;
 			}
+			
+			if ($block)
+				fatal_lang_error('registration_failed_email_provider1');
 		}
-		elseif (!empty($modSettings['allow_by_provider']))
+		
+		if (!empty($modSettings['allow_by_provider']))
 		{
-			// Make it explode again, baby!
+			// Make it explode again!
 			$checkproviders = explode(';', $modSettings['email_providers_allow']);
+			$allow = false;
 			foreach ($checkproviders as $provider)
 			{
-				if (!stripos($regOptions['username'], $provider) && $provider != "")
-				{
-					loadLanguage('Modifications');
-					fatal_lang_error('registration_failed_email_provider2');
-				}
+				if (!empty($provider) && stripos($regOptions['username'], '@' . $provider))
+					$allow = true;
 			}
+			
+			if (!$allow)
+				fatal_lang_error('registration_failed_email_provider1');
 		}
-		else
-		{
-			loadLanguage('Modifications');
+		
+		if (empty($modSettings['block_by_provider']) && empty($modSettings['allow_by_provider']))
 			fatal_lang_error('registration_failed_email');
-		}
 	}
 	
 	// Also check the e-mail addresses?
-	if (!empty($modSettings['also_check_email_addresses']) && !empty($modSettings['block_by_provider']))
+	if ($modSettings['block_what'] == 'email' || $modSettings['block_what'] == 'both')
 	{
-		// Make it explode for the sake of it, baby!
-		$checkproviders = explode(';', $modSettings['email_providers_deny']);
-		foreach ($checkproviders as $provider)
+		// Grab the domain.
+		$splitmail = explode('@', $regOptions['email']);
+		$domain = $splitmail[1];
+		
+		// Block an e-mail provider?
+		if (!empty($modSettings['block_by_provider']))
 		{
-			if (stripos($regOptions['email'], $provider) && $provider != "")
-			{
-				loadLanguage('Modifications');
+			$checkproviders = explode(';', $modSettings['email_providers_deny']);
+			
+			if (in_array($domain, $checkproviders))
 				fatal_lang_error('registration_failed_email_provider2');
-			}
 		}
+		
+		if (!empty($modSettings['allow_by_provider']))
+		{
+			$checkproviders = explode(';', $modSettings['email_providers_allow']);
+			
+			if (!in_array($domain, $checkproviders))
+				fatal_lang_error('registration_failed_email_provider2');
+		}
+		
+		if (empty($modSettings['block_by_provider']) && empty($modSettings['allow_by_provider']))
+			fatal_lang_error('registration_failed_email');
 	}
 }
 
@@ -67,9 +85,9 @@ function ModifyBlockEmailSettings()
 
 	$config_vars = array(
 		array('check', 'enableblockemail'),
+		array('select', 'block_what', array('username' => $txt['what_username'], 'email' => $txt['what_email'], 'both' => $txt['what_both'])),
 		array('check', 'block_by_provider'),
 		array('text', 'email_providers_deny'),
-		array('check', 'also_check_email_addresses'),
 		array('check', 'allow_by_provider'),
 		array('text', 'email_providers_allow'),
 	);

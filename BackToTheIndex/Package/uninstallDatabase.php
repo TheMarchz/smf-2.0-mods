@@ -2,20 +2,18 @@
 
 if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('SMF'))
 	require_once(dirname(__FILE__) . '/SSI.php');
-elseif (!defined('SMF')) // If we are outside SMF and can't find SSI.php, then throw an error
-	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as SMF\'s SSI.php.');
+elseif (!defined('SMF'))
+	die('<b>Error:</b> Cannot uninstall - please verify you put this file in the same place as SMF\'s SSI.php.');
 
 if (SMF == 'SSI')
 	db_extend('packages');
-
-global $db_prefix;
 
 $BTTI_settings = array(
 	'backtotheindex_enabled',
 	'backtotheindex_title',
 	'backtotheindex_href',
 	'backtotheindex_position',
-	'backtotheindex_target_blank',
+	'backtotheindex_target_blank'
 );
 
 if (isset($smcFunc) && !empty($smcFunc))
@@ -26,15 +24,3 @@ if (isset($smcFunc) && !empty($smcFunc))
 			'settings' => $BTTI_settings,
 		)
 	);
-
-// Hooks.
-remove_integration_function('integrate_pre_include', '$sourcedir/Subs-BackToTheIndex.php');
-remove_integration_function('integrate_menu_buttons', 'btti_menu');
-remove_integration_function('integrate_general_mod_settings', 'btti_settings');
-
-if (SMF == 'SSI')
-{
-    fatal_error('<b>Uninstallation complete! (no errors occured)</b><br />');
-    @unlink(__FILE__);
-}
-?>

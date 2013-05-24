@@ -3,7 +3,7 @@
 <package-info xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/package-info">
     <id>yoshi2889:backtotheindex</id>
     <name>Back To The Index</name>
-    <version>0.4</version>
+    <version>0.4.1</version>
     <type>modification</type>
     <install for="2.0 - 2.0.99">
         <readme parsebbc="true">readme.txt</readme>
@@ -13,6 +13,7 @@
     </install>
     <uninstall for="2.0 - 2.0.99">
         <modification reverse="true">install.xml</modification>
+        <code>uninstall.php</code>
         <database>uninstallDatabase.php</database>
         <remove-file name="$sourcedir/Subs-BackToTheIndex.php" />
     </uninstall>

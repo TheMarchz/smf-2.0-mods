@@ -22,9 +22,6 @@ function DevCenter_Settings($return_config = false)
 		array('check', 'devcenter_dont_show_when_0'),
 		array('check', 'devcenter_direct_printing_error'),
 		array('check', 'devcenter_show_phpinfo'),
-		array('check', 'devcenter_quithighserverload'),
-		array('check', 'devcenter_checkserverload'),
-		array('text', 'devcenter_serverloadtobreak')
 	);
 
 	if ($return_config)
@@ -57,7 +54,7 @@ function DevCenter_ErrorLogCount(&$buttons)
         $count = !empty($modSettings['devcenter_error_count']) ? $modSettings['devcenter_error_count'] : 0;
         
         // If we are not empty, or want to show the count at all times, show the count.
-        if ($count != '0' or ($count == 0 && empty($modSettings['devcenter_dont_show_when_0'])))
+        if (!empty($count) || (empty($count) && empty($modSettings['devcenter_dont_show_when_0'])))
         {
                 $buttons['admin']['title'] .= ' [<strong>' . $count . '</strong>]';
                 $buttons['admin']['sub_buttons']['errorlog']['title'] .= ' [<strong>' . $count . '</strong>]';
@@ -72,27 +69,6 @@ function DevCenter_PreLoad()
         
         // Start the countin'!
         $dc_error_count = 0;
-        
-        // First, if asked to, check the server load!
-        if (!empty($modSettings['devcenter_quithighserverload']) && (!empty($modSettings['devcenter_serverloadtobreak']) && is_numeric($modSettings['devcenter_serverloadtobreak'])) && !stristr(PHP_OS, 'win'))
-        {
-                $load = sys_getloadavg();
-                if ($load[0] >= $modSettings['devcenter_serverloadtobreak'])
-                {
-                        header('HTTP/1.1 503 Too busy, try again later');
-                        
-                        die('
-<html>
-	<head>
-		<title>403 Too Busy</title>
-	</head>
-	<body>
-		<h1>403 Too Busy</h1>
-		The server currently is too busy to handle your request, try again later.
-	</body>
-</html>');
-                }
-        }
         
         // Do we want to show the errors? (little trick ;))
         if (!empty($modSettings['devcenter_direct_printing_error']))
@@ -116,24 +92,6 @@ function DevCenter_phpinfo()
         exit;
 }
 
-// Check the load of the server. If it's damned high, transform the News line into a line telling so. We might even have closed our forums...
-function DevCenter_CheckServerLoad()
-{
-        global $modSettings, $txt, $context;
-        
-        // Doesn't work for Windows. Disable it on Windows systems, therefor.
-        if (!empty($modSettings['devcenter_checkserverload']) && (!empty($modSettings['devcenter_serverloadtobreak']) && is_numeric($modSettings['devcenter_serverloadtobreak'])) && !stristr(PHP_OS, 'win'))
-        {
-                $load = sys_getloadavg();
-                if ($load[0] >= $modSettings['devcenter_serverloadtobreak'])
-                {
-                        $txt['news'] = '<strong>' . $txt['warning'] . ':</strong>';
-                        
-                        $context['random_news_line'] = $txt['high_server_load'];
-                }
-        }
-}
-
 // Add one up to the current page error count.
 function DevCenter_LogError()
 {
@@ -152,5 +110,3 @@ function DevCenter_Exit()
         if ($dc_error_count > 0)
                 updateSettings(array('devcenter_error_count' => $oldcount + $dc_error_count));
 }
-
-?>
