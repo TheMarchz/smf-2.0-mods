@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<!--Generated with Mod Manager (c) 2013 Yoshi2889-->
+<package-info xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/package-info">
+    <id>Yoshi2889:AdminNotifyControl</id>
+    <name>Admin Notify Control</name>
+    <version>0.1</version>
+    <type>modification</type>
+    <install for="2.0 - 2.0.99">
+        <modification>install.xml</modification>
+        <database>installDatabase.php</database>
+        <require-file name="files/Subs-AdminsNotify.php" destination="$sourcedir" />
+    </install>
+    <uninstall for="2.0 - 2.0.99">
+        <modification reverse="true">install.xml</modification>
+        <code>uninstall.php</code>
+        <database>uninstallDatabase.php</database>
+        <remove-file name="$sourcedir/Subs-AdminNotify.php" />
+    </uninstall>
+</package-info>

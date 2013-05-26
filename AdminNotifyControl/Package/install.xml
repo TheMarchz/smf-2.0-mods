@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<!--Generated with Mod Manager (c) 2013 Yoshi2889-->
+<modification xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/modification">
+    <id>Yoshi2889:AdminNotifyControl</id>
+    <version>0.1</version>
+    <file name="$sourcedir/Subs-Admin.php">
+        <operation>
+            <search position="after"><![CDATA[		// Stick their particulars in the replacement data.]]></search>
+            <add><![CDATA[		// First check if the admin wants to be notified!
+
+		if (empty($modSettings['notify_admin_' . $row['id_member']]))
+
+			continue;
+
+		]]></add>
+        </operation>
+    </file>
+    <file name="$languagedir/Modifications.english.php">
+        <operation>
+            <search position="end" />
+            <add><![CDATA[// Admin Notify Control
+
+$txt['an_settings'] = 'Admin Notify Control';
+
+$txt['choose_admins_send_mail'] = 'Choose the admins to which to send mail';]]></add>
+        </operation>
+    </file>
+</modification>
