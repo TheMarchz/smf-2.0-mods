@@ -3,31 +3,26 @@
 <!--Generated with Mod Manager (c) 2013 Yoshi2889-->
 <modification xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/modification">
     <id>Yoshi2889:TabbedCategories</id>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <file name="$sourcedir/BoardIndex.php">
         <operation>
             <search position="before"><![CDATA[$context['show_who'] = allowedTo('who_view') && !empty($modSettings['who_enabled']);]]></search>
             <add><![CDATA[	
+	
 	// Yoshi2889: Tabbed Categories
 	$context['html_headers'] .= '
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	<style>
-		.ui-widget-header
-		{
-			background: url("' . $settings['default_images_url'] . '/theme/main_block.png") no-repeat scroll -10px -280px rgb(167, 185, 205);
-		}
-	</style>
 	<script type="text/javascript">
 		//<![CDATA[
-		
 		$(document).ready(function ()
 		{
 			$("#category_tabs").tabs();
 			$(".ui-tabs-panel").css("padding","0px");
+			$(".ui-widget-header").addClass("catbg").removeClass("ui-widget-header");
 		});
-		
 		//]]]]><![CDATA[>
 	</script>';
 	// End Yoshi2889: Tabbed Categories]]></add>

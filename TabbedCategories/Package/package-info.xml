@@ -4,7 +4,7 @@
 <package-info xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/package-info">
     <id>Yoshi2889:TabbedCategories</id>
     <name>Tabbed Categories</name>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <type>modification</type>
     <install for="2.0 - 2.0.99">
         <modification>install.xml</modification>
