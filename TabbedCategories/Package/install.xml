@@ -3,20 +3,18 @@
 <!--Generated with Mod Manager (c) 2013 Yoshi2889-->
 <modification xmlns:smf="http://www.simplemachines.org/" xmlns="http://www.simplemachines.org/xml/modification">
     <id>Yoshi2889:TabbedCategories</id>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <file name="$sourcedir/BoardIndex.php">
         <operation>
             <search position="before"><![CDATA[$context['show_who'] = allowedTo('who_view') && !empty($modSettings['who_enabled']);]]></search>
-            <add><![CDATA[	
-	
-	// Yoshi2889: Tabbed Categories
-	$context['html_headers'] .= '
+            <add><![CDATA[
 
+	// Yoshi2889: Tabbed Categories
+	$context['html_headers'] .= '
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	<script type="text/javascript">
-		//<![CDATA[
+	<script type="text/javascript">		//<![CDATA[
 		$(document).ready(function ()
 		{
 			$("#category_tabs").tabs();
@@ -26,7 +24,7 @@
 		//]]]]><![CDATA[>
 	</script>';
 	// End Yoshi2889: Tabbed Categories]]></add>
-	</operation>
+        </operation>
     </file>
     <file name="$themedir/BoardIndex.template.php">
         <operation>
@@ -72,6 +70,7 @@
 		if (!$category['is_collapsed'])
 		{]]></search>
             <add><![CDATA[	echo '
+	<noscript><div class="errorbox">', $txt['tabbedcat_nojs'], '</div></noscript>
 	<div id="category_tabs">
 		<ul>';
 
@@ -88,9 +87,11 @@
 	{
 		echo '
 		<div id="cat_', $category['id'], '">
-			<table class="table_list">';]]></add>
-	</operation>
-	<operation>
+			<table class="table_list">]]></add>
+        </operation>
+    </file>
+    <file name="$themedir/BoardIndex.template.php">
+        <operation>
             <search position="replace"><![CDATA[		echo '
 			</tbody>';
 		}
@@ -112,7 +113,12 @@
 		
 	echo '
 	</div>';]]></add>
-	</operation>
+        </operation>
+    </file>
+    <file name="$languagedir/Modifications.english.php">
+        <operation>
+            <search position="end" />
+            <add><![CDATA[$txt['tabbedcat_nojs'] = 'You do not have JavaScript enabled, and therefore the board index may not look as expected. Please enable JavaScript for the board index to display correctly.';]]></add>
+        </operation>
     </file>
 </modification>
-	
