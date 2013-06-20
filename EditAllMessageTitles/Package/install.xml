@@ -46,8 +46,6 @@
 				'id_topic' => $change_all_subjects
 			));
 			
-		echo var_dump($change_all_subjects);
-			
 		$messages_to_change = array();
 		while ($row = $smcFunc['db_fetch_row']($request))
 		{
