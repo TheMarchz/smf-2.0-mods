@@ -16,7 +16,7 @@
 			)
 		);]]></search>
             <add><![CDATA[		$request = $smcFunc['db_query']('', '
-			SELECT m.id_member, m.poster_name, m.poster_email, m.poster_time, m.approved, t.id_first_msg
+			SELECT m.id_member, m.poster_name, m.poster_email, m.poster_time, m.approved, m.id_topic, t.id_first_msg
 			FROM {db_prefix}messages AS m
 			INNER JOIN {db_prefix}topics AS t ON m.id_topic = t.id_topic
 			WHERE m.id_msg = {int:id_msg}
